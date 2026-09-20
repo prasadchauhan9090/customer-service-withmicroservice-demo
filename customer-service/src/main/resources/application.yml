@@ -1,0 +1,18 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: CUSTOMER-SERVICE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/custDB
+    username: root
+    password: "@Chauhan99"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
