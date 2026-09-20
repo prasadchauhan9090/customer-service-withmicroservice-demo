@@ -1,0 +1,442 @@
+Customer Service
+
+A Spring Boot REST API for managing customer information using Spring Data JPA and MySQL.
+
+📌 Project Overview
+
+This project is a Maven-based Spring Boot application with a simple layered structure:
+
+Controller → Handles HTTP requests
+
+Service → Contains business logic
+
+Repository → Communicates with the database
+
+Model → Represents the Customer entity
+
+Exception → Handles application errors
+
+🛠️ Technologies Used
+
+Java 17
+
+Spring Boot
+
+Spring Web
+
+Spring Data JPA
+
+MySQL
+
+Maven
+
+Eclipse / Spring Tool Suite
+
+Git & GitHub
+
+📂 Project Structure
+
+customer-service/
+│
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/
+│   │   │       └── chn.in/
+│   │   │           ├── CustomerServiceApplication.java
+│   │   │           │
+│   │   │           ├── controller/
+│   │   │           │   └── CustomerController.java
+│   │   │           │
+│   │   │           ├── exception/
+│   │   │           │   ├── ErrorDetails.java
+│   │   │           │   ├── GlobalExceptionHandler.java
+│   │   │           │   └── ResourceNotFoundException.java
+│   │   │           │
+│   │   │           ├── model/
+│   │   │           │   └── Customer.java
+│   │   │           │
+│   │   │           ├── repo/
+│   │   │           │   └── CustomerRepository.java
+│   │   │           │
+│   │   │           └── service/
+│   │   │               └── CustomerService.java
+│   │   │
+│   │   └── resources/
+│   │       ├── static/
+│   │       ├── templates/
+│   │       └── application.yml
+│   │
+│   └── test/
+│
+├── target/
+├── pom.xml
+├── mvnw
+├── mvnw.cmd
+└── README.md
+
+🚀 Step-by-Step Setup
+
+1. Prerequisites
+
+Install the following software before running the project:
+
+Java
+
+Check Java installation:
+
+java -version
+
+The project uses Java 17.
+
+Maven
+
+Check Maven:
+
+mvn -version
+
+You can also use the Maven Wrapper included in the project:
+
+mvnw.cmd -version
+
+MySQL
+
+Make sure MySQL Server is installed and running.
+
+Check that MySQL is available:
+
+mysql -u root -p
+
+2. Clone the Repository
+
+Clone the GitHub repository:
+
+git clone <YOUR-GITHUB-REPOSITORY-URL>
+
+Move into the project directory:
+
+cd customer-service
+
+3. Create the MySQL Database
+
+Open MySQL and create the database:
+
+CREATE DATABASE customer_db;
+
+Verify the database:
+
+SHOW DATABASES;
+
+Select the database:
+
+USE customer_db;
+
+The customer table will be created/updated automatically by Hibernate when the application starts because the project uses:
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+4. Configure MySQL
+
+Open:
+
+src/main/resources/application.yml
+
+Configure your database connection:
+
+server:
+  port: 9090
+
+spring:
+  application:
+    name: CUSTOMER-SERVICE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/customer_db
+    username: root
+    password: "YOUR_MYSQL_PASSWORD"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+
+Important: Do not upload your real database password to GitHub. Use your own local password or environment variables.
+
+5. Open the Project in Eclipse
+
+Open Eclipse / Spring Tool Suite.
+
+Select:
+File → Import
+
+Choose:
+Maven → Existing Maven Projects
+
+Select the customer-service project folder.
+
+Click Finish.
+
+Wait for Maven dependencies to download.
+
+Make sure there are no errors in the project.
+
+6. Run the Application
+
+Open:
+
+src/main/java/com/chn/in/CustomerServiceApplication.java
+
+Run the application as:
+
+Run As → Spring Boot App
+
+The application will start on:
+
+http://localhost:9090
+
+7. Verify the Application
+
+After starting the application, check the Eclipse console.
+
+You should see that Spring Boot has started successfully and is listening on port:
+
+9090
+
+8. Test the Customer API
+
+The customer controller provides the REST endpoints for customer operations.
+
+Create Customer
+
+POST
+
+http://localhost:9090/customer
+
+Example JSON:
+
+{
+  "custId": 1,
+  "custName": "Prasad Chauhan",
+  "custAdd": "Hyderabad"
+}
+
+You can test the API using:
+
+Postman
+
+Insomnia
+
+curl
+
+Any REST client
+
+Example using curl:
+
+curl -X POST http://localhost:9090/customer ^
+  -H "Content-Type: application/json" ^
+  -d "{\"custId\":1,\"custName\":\"Prasad Chauhan\",\"custAdd\":\"Hyderabad\"}"
+
+9. Check Data in MySQL
+
+Open MySQL:
+
+USE customer_db;
+
+Check the tables:
+
+SHOW TABLES;
+
+Check customer data:
+
+SELECT * FROM customer;
+
+The customer table contains fields corresponding to:
+
+cust_id
+cust_name
+cust_add
+
+🧩 Application Layers
+
+Controller
+
+CustomerController.java
+
+Responsible for handling HTTP requests and responses.
+
+Service
+
+CustomerService.java
+
+Contains the application's business logic.
+
+Repository
+
+CustomerRepository.java
+
+Uses Spring Data JPA to communicate with MySQL.
+
+Model
+
+Customer.java
+
+Represents the Customer database entity.
+
+Exception Handling
+
+The project contains:
+
+ErrorDetails.java
+GlobalExceptionHandler.java
+ResourceNotFoundException.java
+
+These classes provide centralized exception handling and meaningful error responses.
+
+🔄 Application Flow
+
+Client / Postman
+       |
+       v
+CustomerController
+       |
+       v
+CustomerService
+       |
+       v
+CustomerRepository
+       |
+       v
+     MySQL
+       |
+       v
+ customer_db
+       |
+       v
+    customer
+
+🧪 Maven Commands
+
+Clean the Project
+
+mvn clean
+
+Compile
+
+mvn compile
+
+Run Tests
+
+mvn test
+
+Package the Application
+
+mvn clean package
+
+Run the JAR
+
+After packaging:
+
+java -jar target/customer-service-0.0.1-SNAPSHOT.jar
+
+The exact JAR filename may differ depending on the version in pom.xml.
+
+🌿 Git Commands
+
+Check Git Status
+
+git status
+
+Add Files
+
+git add .
+
+Commit Changes
+
+git commit -m "Add customer service application"
+
+Push to GitHub
+
+git push origin main
+
+If your repository uses master:
+
+git push origin master
+
+🔐 Security Note
+
+Never commit sensitive information such as:
+
+MySQL passwords
+
+API keys
+
+Access tokens
+
+Private keys
+
+.env files containing secrets
+
+Before pushing to GitHub, check:
+
+git status
+
+Make sure sensitive files are not being committed.
+
+📄 Important Files
+
+File
+
+Purpose
+
+CustomerServiceApplication.java
+
+Main Spring Boot application
+
+CustomerController.java
+
+REST API controller
+
+CustomerService.java
+
+Business logic
+
+CustomerRepository.java
+
+Database access
+
+Customer.java
+
+Customer entity
+
+GlobalExceptionHandler.java
+
+Global exception handling
+
+ResourceNotFoundException.java
+
+Custom exception
+
+ErrorDetails.java
+
+Error response structure
+
+application.yml
+
+Application and database configuration
+
+pom.xml
+
+Maven dependencies and project configuration
+
+👨‍💻 Author
+
+Prasad Chauhan
+
+⭐ GitHub Repository
+
+If this project is useful, consider giving the repository a ⭐ on GitHub.
